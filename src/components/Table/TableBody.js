@@ -19,7 +19,7 @@ class TableBody extends Component {
                         onChange={() => activeRowHanlder(item.id)}
                         type="checkbox"
                     />
-                </td>
+                </td> 
                 <TableBodyRow id={item.id} />
                 <TableBodyRow id={item.title} />
             </tr>
