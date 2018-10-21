@@ -42,6 +42,24 @@ class Table extends Component {
 
 
     }
+    //полная дичь. я почти все это время разбиралась в модулях)))
+    
+    removeRowFromTable = (value) => {
+        const array = this.state.myUserList;
+        let index = array.indexOf(value);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+        console.log(array);
+        this.setState({
+            myUserList: array
+        });
+
+
+
+    }
+
+
 
     activeRowHanlder = (value) => {
         const array = this.state.activeRowID;
@@ -61,6 +79,7 @@ class Table extends Component {
 
 
     }
+
 
     render() {
         console.log(this.state.activeRowID)
@@ -83,6 +102,7 @@ class Table extends Component {
                     <TableBody
                         activeRowID={this.state.activeRowID}
                         activeRowHanlder={this.activeRowHanlder}
+                        removeRowFromTable={this.removeRowFromTable}
                         data={data.length > 0 ? data : []}
                         isCheckboxActive={activeColumns.indexOf('checkbox') > -1}
                     >

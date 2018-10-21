@@ -6,7 +6,7 @@ import TableBodyRow from './TableBodyRow';
 
 class TableBody extends Component {
     render() {
-        const { data, isCheckboxActive, activeRowHanlder, activeRowID } = this.props;
+        const { data, isCheckboxActive, removeRowFromTable, activeRowHanlder, activeRowID } = this.props;
         const TableBodyRows = data
             // TODO SINGLE SEARCH AS WELL
             // TODO MAKE MULTIPLY OBJECT SEARCH
@@ -22,6 +22,13 @@ class TableBody extends Component {
                 </td> 
                 <TableBodyRow id={item.id} />
                 <TableBodyRow id={item.title} />
+                <td>
+                    <input
+                        onClick={() => removeRowFromTable(item.id)}
+                        type="button"
+                        value={"remove"}
+                    />
+                </td>
             </tr>
             )
         );
