@@ -43,13 +43,20 @@ class Table extends Component {
 
     }
     //полная дичь. я почти все это время разбиралась в модулях)))
-    
+
     removeRowFromTable = (value) => {
+        Array.prototype.remove = function() {
+            let what, a = arguments, len = a.length, ax;
+            while (len && this.length) {
+                what = a[--len];
+                while ((ax = this.indexOf(what)) !== -1) {
+                    this.splice(ax, 1);
+                }
+            }
+            return this;
+        };
         const array = this.state.myUserList;
-        let index = array.indexOf(value);
-        if (index > -1) {
-            array.splice(index, 1);
-        }
+        array.remove(value)
         console.log(array);
         this.setState({
             myUserList: array
