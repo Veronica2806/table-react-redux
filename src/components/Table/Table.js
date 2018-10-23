@@ -56,7 +56,11 @@ class Table extends Component {
             return this;
         };
         const array = this.state.myUserList;
-        array.remove(value)
+        let arrIndex = array.splice(array.findIndex(v => v.id === value), 1);
+        // const acRow = array[this.state.activeRowID];
+        //
+         array.remove(arrIndex);
+
         console.log(array);
         this.setState({
             myUserList: array
