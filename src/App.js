@@ -10,8 +10,6 @@ import Table from './components/Table/Table';
 class App extends Component {
     constructor() {
         super();
-
-
     }
 
     componentWillMount() {

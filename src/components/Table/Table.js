@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
-// @CHILD CLASSES
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
+
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class Table extends Component {
 
@@ -24,7 +25,6 @@ class Table extends Component {
         });
     }
 
-    // (1) TODO HOME WORK
     deleteFromTable = () => {
         const array = this.state.myUserList;
         const activeRows = this.state.activeRowID;
@@ -34,43 +34,44 @@ class Table extends Component {
                 delete array[i];
             }
 
-        };
+        }
+        ;
 
         this.setState({
             myUserList: array
         });
-
-
     }
-    //полная дичь. я почти все это время разбиралась в модулях)))
+    confirmToRemove = () => {
+        confirmAlert({
+            title: 'Confirm to remove',
+            message: 'Are you sure to do this?',
+            buttons: [
+                {
+                    label: 'Yes',
 
-    removeRowFromTable = (value) => {
-        Array.prototype.remove = function() {
-            let what, a = arguments, len = a.length, ax;
-            while (len && this.length) {
-                what = a[--len];
-                while ((ax = this.indexOf(what)) !== -1) {
-                    this.splice(ax, 1);
+                },
+                {
+                    label: 'No'
                 }
+            ],
+
+        })
+    };
+    removeRowFromTable = (value) => {
+
+        if (this.confirmToRemove()){
+            const array = this.state.myUserList;
+            let arrIndex = array.splice(array.findIndex(v => v.id === value), 1), i;
+            while ((i = array.indexOf(arrIndex)) !== -1) {
+                array.splice(i, 1);
             }
-            return this;
-        };
-        const array = this.state.myUserList;
-        let arrIndex = array.splice(array.findIndex(v => v.id === value), 1);
-        // const acRow = array[this.state.activeRowID];
-        //
-         array.remove(arrIndex);
+            console.log(array);
+            this.setState({
+                myUserList: array
+            });
 
-        console.log(array);
-        this.setState({
-            myUserList: array
-        });
-
-
-
+        }
     }
-
-
 
     activeRowHanlder = (value) => {
         const array = this.state.activeRowID;
@@ -80,30 +81,26 @@ class Table extends Component {
 
         } else {
             array.push(value);
-
         }
-
         localStorage.setItem('activeUsers', array);
         this.setState({
             activeRowID: array
         });
-
-
     }
 
 
     render() {
-        console.log(this.state.activeRowID)
-        const { data } = this.props;
+        const {data} = this.props;
         const headerColumnNames = this.state.myUserList.length > 0 ? Object.keys(this.state.myUserList[0]) : [];
         headerColumnNames.unshift('checkbox');
         const activeColumns = ['checkbox', 'id', 'title'];
         return (
             <div>
                 <button
-                    style={{ display: this.state.activeRowID.length > 1 ? "block" : "none"}}
+                    style={{display: this.state.activeRowID.length > 1 ? "block" : "none"}}
                     onClick={this.deleteFromTable}
-                >MULTIPLY DELETE</button>
+                >MULTIPLY DELETE
+                </button>
                 <table className="rwd-table">
                     <TableHeader
                         activeColumns={activeColumns}
