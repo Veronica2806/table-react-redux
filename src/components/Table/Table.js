@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class Table extends Component {
 
@@ -33,7 +31,6 @@ class Table extends Component {
             if (activeRows.includes(array[i])) {
                 delete array[i];
             }
-
         }
         ;
 
@@ -41,36 +38,18 @@ class Table extends Component {
             myUserList: array
         });
     }
-    confirmToRemove = () => {
-        confirmAlert({
-            title: 'Confirm to remove',
-            message: 'Are you sure to do this?',
-            buttons: [
-                {
-                    label: 'Yes',
 
-                },
-                {
-                    label: 'No'
-                }
-            ],
-
-        })
-    };
     removeRowFromTable = (value) => {
 
-        if (this.confirmToRemove()){
-            const array = this.state.myUserList;
-            let arrIndex = array.splice(array.findIndex(v => v.id === value), 1), i;
-            while ((i = array.indexOf(arrIndex)) !== -1) {
-                array.splice(i, 1);
-            }
-            console.log(array);
-            this.setState({
-                myUserList: array
-            });
-
+        const array = this.state.myUserList;
+        let arrIndex = array.splice(array.findIndex(v => v.id === value), 1), i;
+        while ((i = array.indexOf(arrIndex)) !== -1) {
+            array.splice(i, 1);
         }
+        console.log(array);
+        this.setState({
+            myUserList: array
+        });
     }
 
     activeRowHanlder = (value) => {

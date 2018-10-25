@@ -17,7 +17,7 @@ class TableBody extends Component {
                         <TableBodyRow id={item.title}/>
                         <td>
                             <button
-                                onClick={() => removeRowFromTable(item.id)}
+                                onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) removeRowFromTable(item.id)}}
                             >remove</button>
                         </td>
                     </tr>
